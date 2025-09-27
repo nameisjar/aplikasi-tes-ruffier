@@ -1,15 +1,22 @@
 from PyQt5.QtCore import Qt, QTime, QTimer
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QVBoxLayout, QHBoxLayout, QLineEdit
 from instr import *
-from final_win import FinalWin
+from final_win import *
 from PyQt5.QtGui import QFont
+
+class Experiment():
+    def __init__(self, age, test1, test2, test3):
+        self.input_age = age
+        self.input_tahap1 = test1
+        self.input_tahap2 = test2
+        self.input_tahap3 = test3
 
 class TestWin(QWidget):
     def __init__(self):
         super().__init__()
-        self.set_appear()
         self.initUI()
         self.connects()
+        self.set_appear()
         self.show()
         
     def set_appear(self):
@@ -112,7 +119,8 @@ class TestWin(QWidget):
     
     def next_click(self):
         self.hide()
-        self.fw = FinalWin()
+        self.exp = Experiment(int(self.input_age.text()), int(self.input_tahap1.text()), int(self.input_tahap2.text()), int(self.input_tahap3.text()))
+        self.fw = FinalWin(self.exp)
     
     def connects(self):
         self.button.clicked.connect(self.next_click)
